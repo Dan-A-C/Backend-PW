@@ -6,7 +6,8 @@ const path = require('path');
 const cors = require('cors')
 // Registrar las apis
 const consulta = require('./api/consulta.js')
-
+const carrito = require('./api/carrito.js');
+const checkout = require('./api/checkout.js');
 const app = express()
 const port = 3080
 
@@ -18,7 +19,8 @@ const whiteList = ['http://localhost:5173/']
 app.use( cors(whiteList))
 // Mapear la api con la URL de invocacion
 app.use('/api/consulta', consulta)
-
+app.use('/api/carrito', carrito);
+app.use('/api/checkout', checkout);
 app.get('/', (req,res) => {
   res.sendFile(path.join(__dirname, './static/index.html'));
 });
