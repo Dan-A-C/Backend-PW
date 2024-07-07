@@ -1,6 +1,6 @@
 const express = require('express');
-const db = require('../db/config/models/index.js');
-const Pedido =  require('../db/config/models/pedido.js');
+const db = require('../db/models/index.js');
+const Pedido =  require('../db/models/pedido.js');
 
 const ruta = express.Router();
 

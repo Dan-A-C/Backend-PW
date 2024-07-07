@@ -1,7 +1,7 @@
 const express = require('express');
-const db = require('../db/config/models/index.js');
-const Producto = require('../db/config/models/producto.js');
-const Pedido = require('../db/config/models/pedido.js');
+const db = require('../db/models/index.js');
+const Producto = require('../db/models/producto.js');
+const Pedido = require('../db/models/pedido.js');
 
 const ruta = express.Router();
 
