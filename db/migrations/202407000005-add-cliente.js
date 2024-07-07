@@ -3,25 +3,31 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    return queryInterface.addColumn(
-      'pedido',
-      'clienteId',
-      {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'clientes',
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      }
-    );
+    const tableDescription = await queryInterface.describeTable('pedido');
+    if (!tableDescription.clienteId) {
+      await queryInterface.addColumn(
+        'pedido',
+        'clienteId',
+        {
+          type: Sequelize.INTEGER,
+          references: {
+            model: 'clientes',
+            key: 'id',
+          },
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
+        }
+      );
+    }
   },
 
   async down(queryInterface, Sequelize) {
-    return queryInterface.removeColumn(
-      'pedido',
-      'clienteId'
-    );
+    const tableDescription = await queryInterface.describeTable('pedido');
+    if (tableDescription.clienteId) {
+      await queryInterface.removeColumn(
+        'pedido',
+        'clienteId'
+      );
+    }
   }
 };
