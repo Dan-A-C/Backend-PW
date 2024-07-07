@@ -9,6 +9,8 @@ const carrito = require('./api/carrito.js');
 const checkout = require('./api/checkout.js');
 const inicio = require('./api/inicio.js');
 const busqueda = require('./api/busqueda.js');
+const registro = require('./api/Registro.js');
+const recuperar = require('./api/Recuperar.js');
 const app = express()
 const port = 3080
 //Registro alumno 4
@@ -39,6 +41,8 @@ app.use('/api/carrito', carrito);
 app.use('/api/checkout', checkout);
 app.use('/api/inicio', inicio);
 app.use('/api/busqueda', busqueda);
+app.use('/api/registro', registro);
+app.use('/api/recuperar', recuperar);
 
 // Mapear las nuevas rutas para alumno 4
 app.use('/api/alumno4/series', alumno4Series);  // <--- Asegúrate de incluir esta línea

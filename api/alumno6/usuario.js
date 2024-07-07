@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { Usuario, Pedido } = require('../../models');
+const Producto = require('../../db/models/producto.js');
+const Pedido = require('../../db/models/pedido.js');
+const admin = require('../../db/models/admin.js');
+const cliente = require('../../db/models/cliente.js');
 
 // Obtener todos los usuarios
 router.get('/', async (req, res) => {
@@ -20,6 +23,9 @@ router.get('/:id', async (req, res) => {
     const usuario = await Usuario.findByPk(req.params.id, {
       include: [Pedido]
     });
+    if (!usuario) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
     res.json(usuario);
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener los detalles del usuario' });
@@ -29,8 +35,15 @@ router.get('/:id', async (req, res) => {
 // Crear un nuevo usuario
 router.post('/', async (req, res) => {
   try {
-    const usuario = await Usuario.create(req.body);
-    res.json(usuario);
+    const { username, email, contrasena } = req.body;
+    // Verificar si el usuario ya existe
+    const existingUser = await Usuario.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ error: 'El usuario ya existe' });
+    }
+    // Crear un nuevo usuario
+    const usuario = await Usuario.create({ username, email, contrasena });
+    res.status(201).json(usuario);
   } catch (error) {
     res.status(500).json({ error: 'Error al crear el usuario' });
   }

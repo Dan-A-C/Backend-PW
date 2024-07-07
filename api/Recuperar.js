@@ -1,16 +1,20 @@
 const express = require('express');
-const router = express.Router();
-const { User } = require('../models'); // Asegúrate de importar correctamente tu modelo de usuario
+const router = express.Router(); // Añadido para definir router correctamente
+const db = require('../db/models/index.js');
+const Producto = require('../db/models/producto.js');
+const Pedido = require('../db/models/pedido.js');
+const Admin = require('../db/models/admin.js');
+const Cliente = require('../db/models/cliente.js');
 
 // Ruta para recuperar contraseña
 router.post('/recover-password', async (req, res) => {
   const { email } = req.body;
 
   try {
-    // Buscar al usuario por su correo electrónico
-    const user = await User.findOne({ where: { email } });
+    // Buscar al usuario por su correo electrónico en la tabla de clientes
+    const cliente = await Cliente.findOne({ where: { correo: email } });
 
-    if (!user) {
+    if (!cliente) {
       return res.status(404).json({ error: 'Usuario no encontrado' });
     }
 

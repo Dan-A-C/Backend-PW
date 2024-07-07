@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcryptjs');
 const { Usuario } = require('../../db/models');
 
 // Ruta para cambiar la contraseña
@@ -14,13 +13,13 @@ router.post('/cambiar-contrasena', async (req, res) => {
       return res.status(404).json({ error: 'Usuario no encontrado' });
     }
 
-    const esValida = await bcrypt.compare(contrasenaActual, usuario.contrasena);
-    if (!esValida) {
+    // Comparar contraseñas sin encriptar (no recomendado en producción)
+    if (contrasenaActual !== usuario.contrasena) {
       return res.status(400).json({ error: 'Contraseña actual incorrecta' });
     }
 
-    const hash = await bcrypt.hash(nuevaContrasena, 10);
-    usuario.contrasena = hash;
+    // Actualizar la contraseña
+    usuario.contrasena = nuevaContrasena;
     await usuario.save();
 
     res.status(200).json({ mensaje: 'Contraseña cambiada exitosamente' });

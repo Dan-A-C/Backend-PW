@@ -1,55 +1,15 @@
-// server.js
-
 const express = require('express');
-const bodyParser = require('body-parser');
-const bcrypt = require('bcryptjs');
-const { Sequelize, DataTypes } = require('sequelize');
+const db = require('../db/models/index.js');
+const Producto = require('../db/models/producto.js');
+const Pedido = require('../db/models/pedido.js');
+const admin = require('../db/models/admin.js');
+const Cliente = require('../db/models/cliente.js'); // Importa el modelo Cliente
 
-// Inicializar Express
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000; // Asegúrate de haber configurado el puerto
 
-// Configurar Sequelize con SQLite
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: './database.sqlite'
-});
-
-// Definir el modelo de Usuario
-const User = sequelize.define('User', {
-  username: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false
-  }
-});
-
-// Middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-// Conectar Sequelize a la base de datos y sincronizar los modelos
-(async () => {
-  try {
-    await sequelize.authenticate();
-    console.log('Conexión establecida correctamente con la base de datos.');
-
-    // Sincronizar los modelos con la base de datos
-    await sequelize.sync({ force: false });
-    console.log('Modelos sincronizados correctamente con la base de datos.');
-  } catch (error) {
-    console.error('Error al conectar y sincronizar con la base de datos:', error);
-  }
-})();
+// Middleware para manejar JSON
+app.use(express.json());
 
 // Controlador de Registro de Usuario
 const registerUser = async (req, res) => {
@@ -57,16 +17,16 @@ const registerUser = async (req, res) => {
 
   try {
     // Verificar si el usuario ya existe
-    const existingUser = await User.findOne({ where: { email } });
+    const existingUser = await Cliente.findOne({ where: { email } });
     if (existingUser) {
       return res.status(400).json({ msg: 'El usuario ya existe' });
     }
 
     // Crear un nuevo usuario
-    const newUser = await User.create({
+    const newUser = await Cliente.create({
       username,
       email,
-      password: await bcrypt.hash(password, 10) // Encriptar la contraseña
+      password // Sin encriptar la contraseña
     });
 
     res.json({ msg: 'Usuario registrado correctamente' });
@@ -83,3 +43,5 @@ app.post('/api/auth/register', registerUser);
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto ${PORT}`);
 });
+
+module.exports = app;

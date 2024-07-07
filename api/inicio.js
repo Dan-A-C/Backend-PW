@@ -15,17 +15,16 @@ ruta.get('/', async (req, res) => {
 
 // Agregar producto al inicio
 ruta.post('/', async (req, res) => {
-  const { id, nombre} = req.body;
+  const { id, nombre } = req.body;
   const nuevoProducto = await Producto.create({ id, nombre });
   res.status(201).json(nuevoProducto);
 });
 
-// Eliminar producto del carrito
+// Eliminar producto
 ruta.delete('/:id', async (req, res) => {
   const { id } = req.params;
   await Producto.destroy({ where: { id } });
   res.status(200).json({ message: 'Producto eliminado de inicio' });
 });
-
 
 module.exports = ruta;

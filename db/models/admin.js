@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-     
+      // No associations defined for admin in the provided context
     }
   }
   admin.init({
