@@ -4,7 +4,6 @@ const { Model, DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   class Producto extends Model {
     static associate(models) {
-      // Definir asociaciones si las hay
       Producto.belongsToMany(models.Pedido, { through: 'Pedidos_Productos', foreignKey: 'productoId' });
     }
   }
@@ -25,7 +24,8 @@ module.exports = (sequelize) => {
     features: DataTypes.TEXT
   }, {
     sequelize,
-    modelName: 'Producto', 
+    modelName: 'Producto',
+    tableName: 'productos'
   });
 
   return Producto;

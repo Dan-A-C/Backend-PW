@@ -31,9 +31,6 @@ fs
     db[model.name] = model;
   });
 
-  const ProductoModel = require('./producto')(sequelize);
-  db.Producto = ProductoModel;  
-
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
