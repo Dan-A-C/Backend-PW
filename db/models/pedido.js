@@ -2,14 +2,14 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class pedido extends Model {
+  class Pedido extends Model {
     static associate(models) {
-      pedido.belongsTo(models.cliente, { foreignKey: 'clienteId' }); // Asociación con cliente
-      pedido.belongsToMany(models.producto, { through: 'Pedidos_Productos', foreignKey: 'pedidoId' }); // Relación muchos a muchos con producto
+      Pedido.belongsTo(models.Cliente, { foreignKey: 'clienteId' }); 
+      Pedido.belongsToMany(models.Producto, { through: 'Pedidos_Productos', foreignKey: 'pedidoId' }); 
     }
   }
-  
-  pedido.init({
+
+  Pedido.init({
     direccion: DataTypes.STRING,
     ciudad: DataTypes.STRING,
     pais: DataTypes.STRING,
@@ -17,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     total: DataTypes.DOUBLE
   }, {
     sequelize,
-    modelName: 'pedido',
+    modelName: 'Pedido',
   });
 
-  return pedido;
+  return Pedido;
 };

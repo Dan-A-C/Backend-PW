@@ -12,8 +12,8 @@ module.exports = {
           model: 'productos', 
           key: 'id', 
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE', 
+        onDelete: 'CASCADE', 
       }
     );
   },
@@ -21,7 +21,7 @@ module.exports = {
   async down(queryInterface, Sequelize) {
     return queryInterface.removeColumn(
       'pedido', 
-      'productoId'
+      'productoId' 
     );
   }
 };

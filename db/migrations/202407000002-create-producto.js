@@ -10,27 +10,36 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      nombre: {
+      name: {
         type: Sequelize.STRING
       },
-      marca: {
+      brand: {
         type: Sequelize.STRING
       },
-      serie: {
+      series: {
         type: Sequelize.STRING
       },
-      precio: {
+      price: {
         type: Sequelize.DOUBLE
+      },
+      image: {
+        type: Sequelize.STRING
+      },
+      description: {
+        type: Sequelize.TEXT
+      },
+      features: {
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: new Date()
+        defaultValue: Sequelize.fn('NOW')
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: new Date()
+        defaultValue: Sequelize.fn('NOW')
       }
     });
   },
