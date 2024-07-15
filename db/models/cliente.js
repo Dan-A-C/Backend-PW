@@ -10,8 +10,9 @@ module.exports = (sequelize, DataTypes) => {
 
   Cliente.init({
     nombre: DataTypes.STRING,
+    usuario: DataTypes.STRING,
     correo: DataTypes.STRING,
-    contraseña: DataTypes.STRING
+    contra: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Cliente',
