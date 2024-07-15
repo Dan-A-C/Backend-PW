@@ -31,6 +31,9 @@ const alumno4Productos = require('./api/alumno4/producto.js');
 const alumno4Usuarios = require('./api/alumno4/usuario.js');
 const cambiarContrasena = require('./api/alumno4/cambiarContrasena.js');
 
+//Registro alumno 5
+const alumno5Dashboard = require('./api/alumno5/dashboard.js');
+
 // Registrar las APIs para alumno 6
 const alumno6ClienteRoutes = require('./api/alumno6/cliente');
 const alumno6InventarioRoutes = require('./api/alumno6/inventario');
@@ -57,6 +60,9 @@ app.use('/api/alumno4/pedidos', alumno4Pedidos);
 app.use('/api/alumno4/productos', alumno4Productos);
 app.use('/api/alumno4/usuarios', alumno4Usuarios);
 app.use('/api/alumno4', cambiarContrasena);
+
+//Mapear las nuevas rutas para alumno 5
+app.use('/api/alumno5/dashboard', alumno5Dashboard)
 
 // Mapear las nuevas rutas para alumno 6
 app.use('/api/alumno6/clientes', alumno6ClienteRoutes);
