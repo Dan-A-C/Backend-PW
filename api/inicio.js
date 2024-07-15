@@ -13,6 +13,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Las demás rutas...
+
 
 module.exports = router;

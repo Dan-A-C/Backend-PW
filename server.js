@@ -8,6 +8,8 @@ const app = express();
 
 // Permitir CORS para todas las solicitudes
 app.use(cors());
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, './static')));
 
 // Registrar las APIs
 const carrito = require('./api/carrito.js');
@@ -16,6 +18,7 @@ const inicio = require('./api/inicio.js');
 const busqueda = require('./api/busqueda.js');
 const registro = require('./api/Registro.js');
 const recuperar = require('./api/Recuperar.js');
+const detalle = require('./api/Detalle.js');
 
 // Registro alumno 4
 const alumno4Series = require('./api/alumno4/series.js');
@@ -34,9 +37,6 @@ const alumno6PedidoRoutes = require('./api/alumno6/pedido');
 const alumno6ProductoRoutes = require('./api/alumno6/producto');
 const alumno6Usuario = require('./api/alumno6/usuario');
 
-app.use(express.static(path.join(__dirname, './static')));
-app.use(bodyParser.json());
-
 // Mapear las APIs con las URL de invocación
 app.use('/api/carrito', carrito);
 app.use('/api/checkout', checkout);
@@ -44,6 +44,7 @@ app.use('/api/inicio', inicio);
 app.use('/api/busqueda', busqueda);
 app.use('/api/registro', registro);
 app.use('/api/recuperar', recuperar);
+app.use('/api/detalle', detalle);
 
 // Mapear las nuevas rutas para alumno 4
 app.use('/api/alumno4/series', alumno4Series);

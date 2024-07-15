@@ -1,25 +1,28 @@
 const express = require('express');
-const db = require('../db/models/index.js');
-const Producto = require('../db/models/producto.js');
-const Pedido = require('../db/models/pedido.js');
-const admin = require('../db/models/admin.js');
-const cliente = require('../db/models/cliente.js');
+const { Producto } = require('../db/models'); 
 
-const ruta = express.Router();
+const router = express.Router();
 
-// Obtener todos los productos de busqueda
-ruta.get('/', async (req, res) => {
-  const productosBusqueda = await Producto.findAll();
-  res.status(200).json(productosBusqueda);
-  
+// Obtener todos los productos
+router.get('/', async (req, res) => {
+  try {
+    const productos = await Producto.findAll();
+    res.status(200).json({ products: productos });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
+
 
 // Agregar producto a la busqueda
-ruta.post('/', async (req, res) => {
-  const { id, nombre, precio, marca} = req.body;
-  const nuevoProducto = await Producto.create({ id, nombre, precio, marca });
-  res.status(201).json(nuevoProducto);
+router.post('/', async (req, res) => {
+    const { name, brand, series, price, image, description, features } = req.body;
+    try {
+        const nuevoProducto = await Producto.create({ name, brand, series, price, image, description, features });
+        res.status(201).json(nuevoProducto);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al agregar el producto' });
+    }
 });
 
-
-module.exports = ruta;
+module.exports = router;
