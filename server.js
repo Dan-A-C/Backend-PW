@@ -19,6 +19,7 @@ const busqueda = require('./api/busqueda.js');
 const registro = require('./api/Registro.js');
 const recuperar = require('./api/Recuperar.js');
 const detalle = require('./api/Detalle.js');
+const formulario = require('./api/Formulario.js'); // Ruta correcta
 
 // Registro alumno 4
 const alumno4Series = require('./api/alumno4/series.js');
@@ -45,6 +46,7 @@ app.use('/api/busqueda', busqueda);
 app.use('/api/registro', registro);
 app.use('/api/recuperar', recuperar);
 app.use('/api/detalle', detalle);
+app.use('/api/formulario', formulario); // Registro correcto
 
 // Mapear las nuevas rutas para alumno 4
 app.use('/api/alumno4/series', alumno4Series);
@@ -71,3 +73,4 @@ const port = 3080;
 app.listen(port, () => {
   console.log(`Server escuchando en el puerto ${port}`);
 });
+5

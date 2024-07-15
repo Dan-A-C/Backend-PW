@@ -1,12 +1,11 @@
 const express = require('express');
-const { Cliente, Producto } = require('../db/models');
+const { Cliente } = require('../db/models');
 
 const router = express.Router();
 
 router.use(express.json());
 
-// Ruta para registrar usuario
-router.post('/api/registro', async (req, res) => {
+router.post('/', async (req, res) => {
   const { nombre, usuario, correo, contra } = req.body;
 
   try {
@@ -28,6 +27,5 @@ router.post('/api/registro', async (req, res) => {
     res.status(500).json({ error: 'Error del servidor al registrar el usuario' });
   }
 });
-
 
 module.exports = router;
