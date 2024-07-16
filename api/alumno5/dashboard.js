@@ -1,5 +1,5 @@
 const express = require('express');
-const { pedido } = require('../db/models'); 
+const { Pedido } = require('../../db/models'); 
 
 const router = express.Router();
 
@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const pedidos = await pedido.findAll();
-    res.status(200).json({ products: pedidos });
+    res.status(200).json({ orders: pedidos });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
